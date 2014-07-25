@@ -48,9 +48,6 @@ Installation etc...
 
 + Make sure you have [Node.js](http://nodejs.org) installed
 
-+ Install Bower
-  `npm install -g bower`
-
 + Install required [npm](http://npmjs.org) and [Bower](http://bower.io) dependencies
   `npm install`
 
