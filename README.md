@@ -39,4 +39,33 @@ $('.containner').pagination({
 
 An example is provided in a static html file as well as in the test directory.
 
- 
+Installation etc...
+--------------------
+
++ Make sure you have [Node.js](http://nodejs.org) installed
+
++ Install Bower
+  `npm install -g bower`
+
++ Install required [npm](http://npmjs.org) and [Bower](http://bower.io) dependencies
+  `npm install`
+
+  (`npm postinstall` calls `bower install`)
+
++ Run the tests with
+  `npm test`
+
++ Lint the source with 
+  `npm run lint`
+
++ Generate a minified version with 
+  `npm run uglify`
+
+
+License
+-------
+
+MIT
+
+
+

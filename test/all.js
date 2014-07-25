@@ -3,9 +3,9 @@ describe('jquery.paginator test suite', function () {
 
   var $fixtures
     , $items
-    , $next
-    , $prev
-    , $nav
+    // , $next
+    // , $prev
+    // , $nav
     , tplItem
     , tplPagination;
 
@@ -19,9 +19,9 @@ describe('jquery.paginator test suite', function () {
 
     $fixtures.html(window.__html__['test/fixture.html']);
     $items = $fixtures.find('#items');
-    $next = $fixtures.find('[data-js="next"]');
-    $prev = $fixtures.find('[data-js="prev"]');
-    $nav = $fixtures.find('[data-js="pagination"]');
+//    $next = $fixtures.find('[data-js="next"]');
+//    $prev = $fixtures.find('[data-js="prev"]');
+//    $nav = $fixtures.find('[data-js="pagination"]');
 
     if (!tplItem) {
       tplItem = Handlebars.compile($fixtures.find('#item-template').html());
@@ -46,7 +46,7 @@ describe('jquery.paginator test suite', function () {
   
   it('should have 0 children when not using DOM and initialized', function () {
     var paginator;
-    $fixtures.paginator({ placeholder: $items });
+    $fixtures.paginator({placeholder: $items});
     
     paginator = $fixtures.data('paginator');
     expect(paginator.totalItems).toEqual(0);
@@ -137,7 +137,7 @@ describe('jquery.paginator test suite', function () {
 
 
   it('navigate next', function () {
-    var paginator, i, l, item, items = [];
+    var paginator, i, l, items = [];
 
     for (i = 0, l = 11; i < l; i++) {
       items.push({name: 'item' + i, price: Math.round(10 + Math.random() * 100 - 50)});
@@ -165,7 +165,7 @@ describe('jquery.paginator test suite', function () {
 
   
   it('navigate prev', function () {
-    var paginator, i, l, item, items = [];
+    var paginator, i, l, items = [];
 
     for (i = 0, l = 11; i < l; i++) {
       items.push({name: 'item' + i, price: Math.round(10 + Math.random() * 100 - 50)});

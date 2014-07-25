@@ -1,4 +1,4 @@
-;(function ( $, window, document, undefined ) {
+(function ($) {
 
   var pluginName = 'paginator'
     , defaults = {
@@ -36,8 +36,6 @@
   $.extend(Paginator.prototype, {
 
     init: function () {
-      var tmp;
-
       if (this.settings.items) {
         this.items = this.settings.items;
       }
@@ -214,4 +212,4 @@
     return this;
   };
 
-})(jQuery, window, document);
+}(jQuery));
