@@ -1,0 +1,18 @@
+<div id="container">
+  <ul>
+    <li><button data-js="prev">Prev</button></li>
+    <li><button data-js="next">Next</button></li>
+  </ul>
+  <ul id="items"></ul>
+  <p data-js="pagination"></p>
+</div>
+
+<script type="text/template" id="item-template">
+  <li><span>{{name}}</span><span class="item-price">{{price}}&euro;</span></li>
+</script>
+
+<script type="text/template" id="pagination-template">
+  <span>{{start}} - {{end}} of {{total}}</span>
+</script>
+
+
