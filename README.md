@@ -20,7 +20,7 @@ Don't expect too much, work in progress.
   <p data-js="pagination"></p>
 </div>
 
-<script type="text/template" id="item-template">
+<script type="text/template" id="tpl-item">
   <li><span class="item-name">{{name}}</span>
     <span class="item-price">{{price}}&euro;</span></li>
 </script>
@@ -29,8 +29,8 @@ Don't expect too much, work in progress.
 
 ```
 var $container = $('#container')
-  , $placeholder = $container.find('.items')
-  , tpl = Handlebars.compile($('tpl-item').html());
+  , $placeholder = $container.find('#items')
+  , tpl = Handlebars.compile($('#tpl-item').html());
 
 $('.containner').pagination({
   items:        [],            // List of items to render (optional)
