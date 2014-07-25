@@ -7,7 +7,8 @@ Don't expect too much, work in progress.
 
 **Example usage:**
 
-`<div id="container">
+```
+<div id="container">
   <ul class="inline noitem">
     <li><button data-js="prev">Prev</button></li>
     <li><button data-js="next">Next</button></li>
@@ -22,10 +23,12 @@ Don't expect too much, work in progress.
 <script type="text/template" id="item-template">
   <li><span class="item-name">{{name}}</span>
     <span class="item-price">{{price}}&euro;</span></li>
-</script>`
+</script>
+```
 
 
-`var $container = $('#container')
+```
+var $container = $('#container')
   , $placeholder = $container.find('.items')
   , tpl = Handlebars.compile($('tpl-item').html());
 
@@ -35,7 +38,8 @@ $('.containner').pagination({
   itemsPerPage: 5,             // Number of items to display per page (default 5),
   template:     tpl,           // The template function to be used for rendering items
   change: function (data) {}   // A handler which will be invoked on update (optional)
-});`
+});
+```
 
 An example is provided in a static html file as well as in the test directory.
 
