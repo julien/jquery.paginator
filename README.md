@@ -32,7 +32,7 @@ var $container = $('#container')
   , $placeholder = $container.find('#items')
   , tpl = Handlebars.compile($('#tpl-item').html());
 
-$('.containner').pagination({
+$container.pagination({
   items:        [],            // List of items to render (optional)
   placeholder:  $placeholder,  // If specified will be used to render the collection items  (optional)
   itemsPerPage: 5,             // Number of items to display per page (default 5),
