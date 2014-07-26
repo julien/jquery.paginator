@@ -1,6 +1,6 @@
 {
   "name": "jquery.paginator",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A simple jQuery paginator plugin",
   "main": "jquery.paginator.js",
   "repository": "git@github.com:julien/jquery.paginator.git",
