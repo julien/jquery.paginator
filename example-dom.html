@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+  <head>
+    <style>
+      .inline,.inline ul,.inline li {
+        margin: 0;
+        padding: 0;
+        display: inline;
+      }
+      .noitem {
+        list-item-type: none;
+      }
+      .item-name {
+        font-size: 1.3em;
+        font-weight: bold;
+        display: block;
+      }
+      .item-price {
+        color: #666;
+        font-style: italic;
+      }
+    </style> 
+  </head>
+  <body>
+
+    <div id="container">
+      <ul class="inline noitem">
+        <li><button data-js="prev">Prev</button></li>
+        <li><button data-js="next">Next</button></li>
+      </ul>
+
+      <ul id="items">
+        <li span class="item-name">item 1</span><span class="item-price"> 100.00$</span></li>
+        <li span class="item-name">item 2</span><span class="item-price"> 100.00$</span></li>
+        <li span class="item-name">item 3</span><span class="item-price"> 100.00$</span></li>
+        <li span class="item-name">item 4</span><span class="item-price"> 100.00$</span></li>
+        <li span class="item-name">item 5</span><span class="item-price"> 100.00$</span></li>
+        <li span class="item-name">item 6</span><span class="item-price"> 100.00$</span></li>
+        <li span class="item-name">item 7</span><span class="item-price"> 100.00$</span></li>
+        <li span class="item-name">item 8</span><span class="item-price"> 100.00$</span></li>
+        <li span class="item-name">item 9</span><span class="item-price"> 100.00$</span></li>
+      </ul>
+
+      <p data-js="pagination"></p>
+    </div>
+   
+    <script type="text/template" id="pagination-template">
+      <span>{{start}} - {{end}} of {{total}}</span>
+    </script>
+
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/handlebars/handlebars.min.js"></script>
+
+    <script src="jquery.paginator.js"></script>
+
+    <script>
+      $(function () {
+        var $container = $('#container')
+          , $items = $container.find('#items')
+          , $prev =$container.find('[data-js="prev"]')
+          , $next =$container.find('[data-js="next"]')
+          , $pagination = $container.find('[data-js="pagination"]')
+          , paginationTpl = Handlebars.compile($('#pagination-template').html());
+
+        $container.paginator({
+          placeholder: $items,
+          useDom: true,
+          itemsPerPage: 3,
+          change: function (data) {
+            $pagination.html(paginationTpl(data));
+          }
+        });
+
+        function displayNext() {
+          $container.data('paginator').next();
+        }
+
+        function displayPrev() {
+          $container.data('paginator').prev();
+        }
+
+        $prev.on('click', displayPrev);
+        $next.on('click', displayNext);
+
+      }());
+    </script>
+  </body>
+</html>

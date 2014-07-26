@@ -41,7 +41,19 @@ $container.pagination({
 });
 ```
 
-An example is provided in a static html file as well as in the test directory.
+You can also use an existing D.O.M. element instead of a template if you need to.
+
+```
+$container.paginator({
+  placeholder: $items,
+  useDom: true,
+  itemsPerPage: 3,
+  change: function (data) {}
+});
+```
+
+
+Examples are provided in html files as well as in the test directory.
 
 Installation etc...
 --------------------
