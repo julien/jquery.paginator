@@ -19,7 +19,7 @@
         color: #666;
         font-style: italic;
       }
-    </style> 
+    </style>
   </head>
   <body>
 
@@ -31,7 +31,7 @@
       <ul id="items"></ul>
       <p data-js="pagination"></p>
     </div>
-    
+
     <script type="text/template" id="item-template">
       <li><span class="item-name">{{name}}</span>
         <span class="item-price">{{price}}&euro;</span></li>
@@ -58,8 +58,7 @@
 
 
         function generateItems() {
-          var i = 0, l = 100, item;
-
+          var i = 0, l = 36, item;
           for ( ; i < l; i++) {
             item = {
               name: 'Item ' + (i + 1),
@@ -70,14 +69,19 @@
         }
         generateItems();
 
-        $container.paginator({
-          items: itemsList,
-          placeholder: $items,
-          template: Handlebars.compile($('#item-template').html()),
-          change: function (data) {
-            $pagination.html(paginationTpl(data));
-          }
-        });
+        $container
+          .paginator({
+            items: itemsList,
+            placeholder: $items,
+            template: Handlebars.compile($('#item-template').html()),
+            change: function (data) {
+              $pagination.html(paginationTpl(data));
+            }
+          })
+          .on('paginator.change', function (e, data) {
+            console.log('paginator.change', data);
+          });
+
 
         function displayNext() {
           $container.data('paginator').next();

@@ -9,13 +9,14 @@
         useDom: false
       };
 
+
   function Paginator (element, options) {
     this.element = element;
 
     this.settings = $.extend({}, defaults, options);
     this._defaults = defaults;
     this._name = pluginName;
-    
+
     this.$el = $(this.element);
     this.$placeholder = this.settings.placeholder || $(this.element);
     this.template = this.settings.template;
@@ -28,7 +29,7 @@
     this.page = 0;
     this.totalPages = 0;
 
-    this.changeHandler = $.isFunction(this.settings.change) ? this.settings.change : $.noop; 
+    this.changeHandler = $.isFunction(this.settings.change) ? this.settings.change : $.noop;
 
     this.init();
   }
@@ -39,7 +40,7 @@
       if (this.settings.items) {
         this.items = this.settings.items;
       }
-      
+
       if (this.settings.useDom) {
         this.items = this.$placeholder.children().clone();
         this.$placeholder.empty();
@@ -51,11 +52,7 @@
       if (this.items.length) {
         this.render(this.currentItems());
 
-        this.changeHandler({ 
-          start: 1, // Since this is the first render
-          end:   this.itemIdxEnd,
-          total: this.totalItems
-        });
+        this._notify();
       }
     },
 
@@ -66,11 +63,9 @@
     },
 
     _notify: function () {
-      this.changeHandler({ 
-        start: this.itemIdxStart + 1,
-        end:   this.itemIdxStart + this.itemsPerPage,
-        total: this.totalItems
-      });
+      var range = this.currentRange();
+      this.changeHandler(range);
+      this.$el.trigger('paginator.change', range);
     },
 
     _update: function () {
@@ -107,15 +102,33 @@
       return this.items.slice(this.itemIdxStart, this.itemIdxEnd);
     },
 
+    currentRange: function () {
+      var start = this.itemIdxStart
+        , end = this.itemIdxEnd
+        , total = this.totalItems;
+
+      if (end > total) {
+        end = total;
+      }
+
+      return {
+        start: start + 1,
+        end: end,
+        total: total,
+        page: this.page,
+        totalPages: this.totalPages
+      };
+    },
+
     render: function (data) {
       var i, l, tpl;
 
       if (!this.settings.useDom && this.template) {
         if ($.isArray(data)) {
           this.empty();
-          
+
           tpl = [];
-          
+
           l = this.currentItems().length;
           for (i = 0; i < l; i++) {
             tpl[i] = this.template(data[i]);
@@ -123,11 +136,11 @@
           this.$placeholder.append(tpl.join(''));
         } else if ($.isPlainObject(data)) {
           tpl = this.template(data);
-          this.$placeholder.append(tpl);  
+          this.$placeholder.append(tpl);
         }
 
       } else if (this.settings.useDom) {
-        this.empty(); 
+        this.empty();
         this.$placeholder.append(this.currentItems());
       }
     },
@@ -155,7 +168,7 @@
 
       index = index < 0 ? 0 : index;
       index = index > this.items.length ? this.items.length : index;
-      
+
       if (!this.items[index]) {
         index = this.items.length - 1;
       }
@@ -171,7 +184,7 @@
 
         if (this.items[index]) {
           this.items.splice(index, 1);
-        
+
           this.totalItems = this.items.length;
           this._update();
           this._notify();
@@ -200,9 +213,10 @@
         this._notify();
       }
     }
+
   });
 
-  // Plugin wrapper 
+  // Plugin wrapper
   $.fn[pluginName] = function (options) {
     this.each(function() {
       if (!$.data(this, pluginName)) {

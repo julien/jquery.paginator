@@ -37,17 +37,17 @@ describe('jquery.paginator test suite', function () {
       $fixtures.remove();
     }
   });
-  
+
   it('should be defined and should be a function', function () {
     expect($fixtures.paginator).toBeDefined();
     expect($.isFunction($fixtures.paginator)).toBeTruthy();
   });
 
-  
+
   it('should have 0 children when not using DOM and initialized', function () {
     var paginator;
     $fixtures.paginator({placeholder: $items});
-    
+
     paginator = $fixtures.data('paginator');
     expect(paginator.totalItems).toEqual(0);
     expect(paginator.page).toEqual(0);
@@ -67,13 +67,13 @@ describe('jquery.paginator test suite', function () {
       items.push({name: 'item' + i, price: Math.round(10 + Math.random() * 100 - 50)});
     }
 
-    $fixtures.paginator({ 
+    $fixtures.paginator({
       items: items,
       placeholder: $items,
-      template: tplItem 
+      template: tplItem
     });
     paginator = $fixtures.data('paginator');
-   
+
     expect(paginator.items.length).toEqual(100);
     expect(paginator.totalItems).toEqual(100);
     expect(paginator.page).toEqual(1);
@@ -85,10 +85,10 @@ describe('jquery.paginator test suite', function () {
     var item = {name: 'item' + 1, price: Math.round(10 + Math.random() * 100 - 50)}
       , paginator;
 
-    $fixtures.paginator({ 
+    $fixtures.paginator({
       items: [],
       placeholder: $items,
-      template: tplItem 
+      template: tplItem
     });
     paginator = $fixtures.data('paginator');
 
@@ -107,13 +107,13 @@ describe('jquery.paginator test suite', function () {
 
   it('removing an element', function () {
     var paginator;
-    $fixtures.paginator({ 
+    $fixtures.paginator({
       items: [],
       placeholder: $items,
-      template: tplItem 
+      template: tplItem
     });
     paginator = $fixtures.data('paginator');
-   
+
     paginator.add({name: 'item1', price: Math.round(10 + Math.random() * 100 - 50)});
     paginator.add({name: 'item2', price: Math.round(10 + Math.random() * 100 - 50)});
     paginator.add({name: 'item3', price: Math.round(10 + Math.random() * 100 - 50)});
@@ -143,14 +143,14 @@ describe('jquery.paginator test suite', function () {
       items.push({name: 'item' + i, price: Math.round(10 + Math.random() * 100 - 50)});
     }
 
-    $fixtures.paginator({ 
+    $fixtures.paginator({
       items: items,
       placeholder: $items,
-      template: tplItem 
+      template: tplItem
     });
 
     paginator = $fixtures.data('paginator');
-   
+
     expect(paginator.currentChildren().length).toEqual(5);
     expect(paginator.totalPages).toEqual(3);
 
@@ -163,7 +163,7 @@ describe('jquery.paginator test suite', function () {
     expect(paginator.currentChildren().length).toEqual(1);
   });
 
-  
+
   it('navigate prev', function () {
     var paginator, i, l, items = [];
 
@@ -171,14 +171,14 @@ describe('jquery.paginator test suite', function () {
       items.push({name: 'item' + i, price: Math.round(10 + Math.random() * 100 - 50)});
     }
 
-    $fixtures.paginator({ 
+    $fixtures.paginator({
       items: items,
       placeholder: $items,
-      template: tplItem 
+      template: tplItem
     });
 
     paginator = $fixtures.data('paginator');
-   
+
     expect(paginator.currentChildren().length).toEqual(5);
     expect(paginator.totalPages).toEqual(3);
 
@@ -190,7 +190,7 @@ describe('jquery.paginator test suite', function () {
     expect(paginator.currentChildren().length).toEqual(1);
 
     paginator.prev();
-    
+
     expect(paginator.page).toEqual(2);
     expect(paginator.currentChildren().length).toEqual(5);
 
@@ -202,5 +202,41 @@ describe('jquery.paginator test suite', function () {
     paginator.prev();
     expect(paginator.page).toEqual(1);
   });
+
+  it('range', function () {
+    var paginator, range, i;
+
+    $fixtures.paginator({
+      items: [],
+      placeholder: $items,
+      template: tplItem
+    });
+
+    paginator = $fixtures.data('paginator');
+
+    paginator.add({name: 'item1', price: Math.round(10 + Math.random() * 100 - 50)});
+    paginator.add({name: 'item2', price: Math.round(10 + Math.random() * 100 - 50)});
+    paginator.add({name: 'item3', price: Math.round(10 + Math.random() * 100 - 50)});
+
+    range = paginator.currentRange();
+
+    expect(range).toBeDefined();
+    expect(range.start).toEqual(1);
+    expect(range.end).toEqual(3);
+    expect(range.total).toEqual(3);
+
+    for (i = 0; i < 97; i++) {
+      paginator.add({name: 'item' + (i + 1), price: Math.round(10 + Math.random() * 100 - 50)});
+    }
+
+    paginator.next();
+    range = paginator.currentRange();
+    expect(range.start).toEqual(6);
+    expect(range.end).toEqual(10);
+    expect(range.total).toEqual(100);
+
+  });
+
+
 
 });
